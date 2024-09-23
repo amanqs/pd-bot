@@ -235,7 +235,7 @@ bot.command('menu', async (ctx) => {
   try {
     await ctx.reply(
       `╭─❒ 「 Bot Info 」 
-├ Creator : [@ahmadzakiyo]
+├ Creator : [@cgban]
 ├ Sponsored : [@BotFather]
 ├ Memory Used : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(os.totalmem() / 1024 / 1024)}MB
 ├ Hostname : ${os.hostname()}
@@ -919,7 +919,7 @@ const transactionMessage = `╭──── 〔 *NOTIF OTOMATIS* 〕
 *┊・ 🔐| Transaksi berhasil:* ${transactionCount}
    Pembelian barang berhasil, terima kasih telah berbelanja. Yuk beli akun di @nuxysaibot
    
-   Auothor : @ahmadzakiyo
+   Auothor : @cgban
    ©2024
 ╰┈┈┈┈┈┈┈┈`;
 
