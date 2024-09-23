@@ -1,7 +1,58 @@
 {
-  "name": "Nuxys-BOT Telegram",
-  "description": "A barebones Node.js app using Express",
-  "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "https://telegra.ph/file/2dfe530e113fcd823d185.jpg",
-  "keywords": ["node", "express", "static"]
+  "name": "bogel-store-bot",
+  "description": "A Telegram bot for Bogel Store that handles purchases and broadcasts.",
+  "repository": "https://github.com/amanqs/cb-pay",
+  "env": {
+    "MONGODB_URI": {
+      "description": "MongoDB connection string",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Telegram bot token",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Telegram owner ID",
+      "required": true
+    },
+    "GROUP_ID": {
+      "description": "Telegram group ID",
+      "required": true
+    },
+    "CHANNEL_ID": {
+      "description": "Telegram channel ID",
+      "required": true
+    },
+    "PHOTO_URL": {
+      "description": "Photo URL for broadcasts",
+      "required": true
+    },
+    "DO_APIKEY": {
+      "description": "API key for service",
+      "required": true
+    },
+    "SERVICE_PAYDISINI": {
+      "description": "Service number for PAYDISINI",
+      "required": true
+    },
+    "TYPEFEE": {
+      "description": "Type fee for PAYDISINI",
+      "required": true
+    },
+    "TIME_PAYDISINI": {
+      "description": "Timer expiration for QRIS Paydisini",
+      "required": true
+    }
+  },
+  "scripts": {
+    "postdeploy": "npm install"
+  },
+  "addons": [
+    "mLab" // Ganti dengan add-on MongoDB yang sesuai
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
 }
