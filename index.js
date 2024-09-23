@@ -25,6 +25,7 @@ const prices = {
 };
 
 //============CONFIG============//
+require('dotenv').config()
 let token = process.env.BOT_TOKEN; // TOKEN BOT TELEGRAM
 let botname = 'BOGEL STORE BOT'; // NAMA UNTUK BOT 
 let ownerId = process.env.OWNER_ID; // ID OWNER TELEGRAM
