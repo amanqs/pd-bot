@@ -47,9 +47,6 @@
   "scripts": {
     "postdeploy": "npm install"
   },
-  "addons": [
-    "mLab" // Ganti dengan add-on MongoDB yang sesuai
-  ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
