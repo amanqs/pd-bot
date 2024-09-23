@@ -25,18 +25,19 @@ const prices = {
 };
 
 //============CONFIG============//
-let token = ["5913815080:AAG9ZZfdShhl8pCUPmzcE0OwlnmyRg6EYQU"]// TOKEN BOT TELEGRAM
-let botname = 'BOGEL STORE BOT'//NAMA UNTUK BOT 
-let ownerId = '6752163466'//ID OWNER TELEGRAM bisa pakai Bot Rose untuk mendapatkan user ID
-let owner = 'BogelStore1'//Username Owner
-let groupId = '-1002081929222' // ID grup Telegram gunakan Helper Bot untuk mendapatka ID Group dengan cara /info @Username_Group
-let channelId = '-1002160623851' // ID channel Telegram gunakan Helper Bot untuk mendapatka ID Channel dengan cara /info @Username_Channel
-let PHOTO_URL = 'https://telegra.ph//file/a22656931d544e1bd216e.jpg'//LINK PHOTO UNTUK DI TAMPILKAN DALAM BROADCAST JIKA ADA USER / BUYYER YANG MELAKUKAN PEMBELIAN
-let MONGODB_URI = 'mongodb+srv://ahmadzakime:lelang18@restapi.syyz2sc.mongodb.net/?retryWrites=true&w=majority&appName=Restapi'
-let DO_APIKEY = 'dop_v1_3351ba67bd216a12fa93e52c192c8f17312a4decadae75d43e52c2c312977908'
-let SERVICE_PAYDISINI = '23'//Nomor Service PAYDISINI
-let TYPEFEE = '1'//TYPE FEE PAYDISINI
-let timepaydisini = '1800'// Waktu timer EXP untuk QRIS Paydisini
+let token = process.env.BOT_TOKEN; // TOKEN BOT TELEGRAM
+let botname = 'BOGEL STORE BOT'; // NAMA UNTUK BOT 
+let ownerId = process.env.OWNER_ID; // ID OWNER TELEGRAM
+let owner = 'cgban'; // Username Owner
+let groupId = process.env.GROUP_ID; // ID grup Telegram
+let channelId = process.env.CHANNEL_ID; // ID channel Telegram
+let PHOTO_URL = process.env.PHOTO_URL; // LINK PHOTO UNTUK DI TAMPILKAN
+let MONGODB_URI = process.env.MONGODB_URI; // MongoDB connection string
+let DO_APIKEY = process.env.DO_APIKEY; // API key untuk service
+let SERVICE_PAYDISINI = process.env.SERVICE_PAYDISINI; // Nomor Service PAYDISINI
+let TYPEFEE = process.env.TYPEFEE; // TYPE FEE PAYDISINI
+let timepaydisini = process.env.TIME_PAYDISINI; // Waktu timer EXP untuk QRIS Paydisini
+
 const bot = new Telegraf(token);
 bot.use(session());
 
