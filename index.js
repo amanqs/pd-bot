@@ -27,7 +27,7 @@ const prices = {
 //============CONFIG============//
 require('dotenv').config()
 let token = process.env.BOT_TOKEN; // TOKEN BOT TELEGRAM
-let botname = 'BOGEL STORE BOT'; // NAMA UNTUK BOT 
+let botname = 'Amang Store Bot'; // NAMA UNTUK BOT 
 let ownerId = process.env.OWNER_ID; // ID OWNER TELEGRAM
 let owner = 'cgban'; // Username Owner
 let groupId = process.env.GROUP_ID; // ID grup Telegram
@@ -205,7 +205,7 @@ bot.use((ctx, next) => {
     console.log(`[${timestamp}] User: @${username}, Command: ${command}`);
 
     if (command.startsWith('/')) {
-      const knownCommands = ['start', 'privacy', 'createrdp', 'createvps', 'ceksaldo', 'caraorder', 'menu', '2fa', 'beli', 'stock', 'deposit', 'leaderboard', 'tiktok', 'addsaldo', 'addproduk', 'delproduk', 'addstock', 'setharga', 'resetdb', 'bc', 'listvm'];
+      const knownCommands = ['start', 'privacy', 'createrdp', 'createvps', 'ceksaldo', 'caraorder', 'menu', '2fa', 'beli', 'stock', 'deposit', 'leaderboard', 'tiktok', 'addsaldo', 'addproduk', 'delproduk', 'addstock', 'setharga', 'resetdb', 'bc', 'listvm', 'owner'];
 
       if (!knownCommands.includes(command.substring(1).split(' ')[0])) {
         ctx.reply('⚠️ Command tidak ditemukan. Silakan gunakan perintah yang valid.');
@@ -235,44 +235,40 @@ bot.command('start', (ctx) => {
 bot.command('menu', async (ctx) => {
   try {
     await ctx.reply(
-      `╭─❒ 「 Bot Info 」 
-├ Creator : [@cgban]
-├ Sponsored : [@BotFather]
-├ Memory Used : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(os.totalmem() / 1024 / 1024)}MB
-├ Hostname : ${os.hostname()}
-├ Platform : ${os.platform()}
+      `╭─❒  🌟 **Bot Info** 🌟
+├ **Creator:** [@cgban]
+├ **Sponsored by:** [@BotFather]
+├ **Memory Used:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(os.totalmem() / 1024 / 1024)}MB
+├ **Hostname:** ${os.hostname()}
+├ **Platform:** ${os.platform()}
 ╰❒ 
 
-╭─❒ 「 USER MENU 」 
-├ - /beli 
+╭─❒  📚 **USER MENU** 📚
+├ /beli - Purchase items
+├ /stock - Check stock availability
 ╰❒ 
 
-╭─❒ 「 OWNER MENU 」 
-├ - /addproduk 
-├ - /delproduk
-├ - /setharga
-├ - /resetdb
-├ - /bc
+╭─❒  🔧 **OWNER MENU** 🔧
+├ /addproduk - Add a product
+├ /delproduk - Delete a product
+├ /setharga - Set the price
+├ /resetdb - Reset the database
+├ /bc - Broadcast a message
 ╰❒ 
-
       `,
       {
         reply_markup: {
           inline_keyboard: [
             [
-              { text: 'DEPOSIT', callback_data: 'deposit' },
-              { text: 'CEKSALDO', callback_data: 'ceksaldo' }
+              { text: '💰 DEPOSIT', callback_data: 'deposit' },
+              { text: '🔍 CEKSALDO', callback_data: 'ceksaldo' }
             ],
             [
-              { text: 'INFO', callback_data: 'info' }
+              { text: 'ℹ️ INFO', callback_data: 'info' }
             ],
             [
-              { text: 'CARA ORDER', callback_data: 'caraorder' }
+              { text: '📦 CARA ORDER', callback_data: 'caraorder' }
             ],
-            [
-              { text: 'CREATE VPS', callback_data: 'createvps' }
-
-            ]
           ]
         },
         reply_to_message_id: ctx.message.message_id
@@ -280,10 +276,60 @@ bot.command('menu', async (ctx) => {
     );
   } catch (error) {
     console.error('Error handling menu action:', error);
-    // Jika ada kesalahan, hanya kirimkan pesan kesalahan ke pengguna tanpa membalas ke pesan tertentu
     await ctx.reply('Terjadi kesalahan saat menampilkan menu.');
   }
 });
+
+
+// Command owner 
+bot.command('owner', async (ctx) => {
+  try {
+    await ctx.reply(
+      `╭─❒  🌟 **Bot Info** 🌟
+├ **Creator:** [@cgban]
+├ **Sponsored by:** [@BotFather]
+├ **Memory Used:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(os.totalmem() / 1024 / 1024)}MB
+├ **Hostname:** ${os.hostname()}
+├ **Platform:** ${os.platform()}
+╰❒ 
+
+╭─❒  📚 **USER MENU** 📚
+├ /beli - Purchase items
+├ /stock - Check stock availability
+╰❒ 
+
+╭─❒  🔧 **OWNER MENU** 🔧
+├ /addproduk - Add a product
+├ /delproduk - Delete a product
+├ /setharga - Set the price
+├ /resetdb - Reset the database
+├ /bc - Broadcast a message
+╰❒ 
+      `,
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              { text: '💰 DEPOSIT', callback_data: 'deposit' },
+              { text: '🔍 CEKSALDO', callback_data: 'ceksaldo' }
+            ],
+            [
+              { text: 'ℹ️ INFO', callback_data: 'info' }
+            ],
+            [
+              { text: '📦 CARA ORDER', callback_data: 'caraorder' }
+            ],
+          ]
+        },
+        reply_to_message_id: ctx.message.message_id
+      }
+    );
+  } catch (error) {
+    console.error('Error handling menu action:', error);
+    await ctx.reply('Terjadi kesalahan saat menampilkan menu.');
+  }
+});
+
 
 // Command untuk menampilkan kebijakan privasi
 bot.command ('privacy', (ctx) => {
@@ -328,10 +374,17 @@ bot.action('caraorder', (ctx) => {
   const message = `
 **Cara Order Produk:**
 
-1. **Cara Order Produk Akun:**
+1. **Cara Deposit:**
+   - Ketik /menu
+   - Pilih Tombol Deposit
+   - Masukkan Jumlah Deposit
+   - Tunggu hingga BOT Mengkonfirmasi Pembayaran anda.
+
+2. **Cara Order Produk Akun:**
    - Ketik /beli diikuti dengan kode produk dan jumlah.
    - Contoh: /beli kodeproduk jumlah
-   - Admin atau owner akan memverifikasi dan memproses pesanan Anda.
+   - Produk akan di kirim otomatis oleh bot, Jika akun memerlukan code 2FA Contacts owner untuk meminta akses.
+   - Jangan lupa Selalu simpan data anda.
 
 Jika Anda memiliki pertanyaan lebih lanjut atau membutuhkan bantuan, jangan ragu untuk menghubungi admin atau owner.
 `;
