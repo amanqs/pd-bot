@@ -205,7 +205,7 @@ bot.use((ctx, next) => {
     console.log(`[${timestamp}] User: @${username}, Command: ${command}`);
 
     if (command.startsWith('/')) {
-      const knownCommands = ['start', 'privacy', 'createrdp', 'createvps', 'ceksaldo', 'caraorder', 'menu', '2fa', 'beli', 'listproduk', 'deposit', 'leaderboard', 'tiktok', 'addsaldo', 'addproduk', 'delproduk', 'addstock', 'setharga', 'resetdb', 'bc', 'listvm'];
+      const knownCommands = ['start', 'privacy', 'createrdp', 'createvps', 'ceksaldo', 'caraorder', 'menu', '2fa', 'beli', 'stock', 'deposit', 'leaderboard', 'tiktok', 'addsaldo', 'addproduk', 'delproduk', 'addstock', 'setharga', 'resetdb', 'bc', 'listvm'];
 
       if (!knownCommands.includes(command.substring(1).split(' ')[0])) {
         ctx.reply('⚠️ Command tidak ditemukan. Silakan gunakan perintah yang valid.');
@@ -383,8 +383,8 @@ bot.action('info', async (ctx) => {
   }
 });
 
-// Handle /listproduk
-bot.action('listproduk', async (ctx) => {
+// Handle /stock
+bot.action('stock', async (ctx) => {
   try {
     // Menghapus pesan yang memicu aksi ini
     await ctx.deleteMessage();
@@ -946,8 +946,8 @@ await bot.telegram.sendPhoto(channelId, photoUrl, {
   }
 });
 
-// Command /listproduk
-bot.command('listproduk', async (ctx) => {
+// Command /stock
+bot.command('stock', async (ctx) => {
   try {
     const products = await Product.find();
     if (products.length === 0) {
