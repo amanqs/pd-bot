@@ -1132,17 +1132,13 @@ bot.hears(/^\d+$/, async (ctx) => {
       console.log(`Failed to create deposit request: ${JSON.stringify(response.data)}`);
     }
   } catch (error) {
-    // Log error response jika ada
-    if (error.response) {
-      console.error(`Error Response Data: ${JSON.stringify(error.response.data)}`);
-      console.error(`Error Response Status: ${error.response.status}`);
-      console.error(`Error Response Headers: ${JSON.stringify(error.response.headers)}`);
-    } else {
-      console.error(`Error Message: ${error.message}`);
-    }
-    
     ctx.reply('Gagal membuat permintaan deposit.');
+    console.log(`Failed to create deposit request: ${error.message}`);
   }
+
+  // Hapus state setelah selesai
+  delete depositState[userId];
+});
 
  // Handle size selection
   bot.action(/(vps|rdp)_size_.+/, async (ctx) => {
