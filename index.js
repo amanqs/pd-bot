@@ -1102,43 +1102,27 @@ bot.hears(/^\d+$/, async (ctx) => {
     }), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-  }
+      }
     });
-
+  
     if (response.data.success) {
-      const { data } = response.data;
-      const qrcodeUrl = data.qrcode_url;
-      const { service_name, balance, fee, type_fee, note, status, expired } = data;
-
-      // Simpan informasi deposit ke database
-      const newDeposit = new Deposit({
-        userId,
-        amount,
-        status: 'pending',
-        uniqueCode,
-      });
-      await newDeposit.save();
-
-      await ctx.replyWithPhoto(
-        { url: qrcodeUrl },
-        {
-          caption: `Informasi Deposit:\n- Service Name: ${service_name}\n- Amount: ${amount}\n- Jumlah deposit: ${balance}\n- Fee: ${fee}\n- Type Fee: ${type_fee}\n- Note: ${note}\n- Status: ${status}\n- Expired: ${expired}`,
-        }
-      );
-
-      console.log(`Deposit request created: ${JSON.stringify(data)}`);
+      // ... (sisa kode untuk memproses response)
     } else {
       ctx.reply('Minimal deposit adalah Rp1000');
       console.log(`Failed to create deposit request: ${JSON.stringify(response.data)}`);
     }
   } catch (error) {
+    // Log error response jika ada
+    if (error.response) {
+      console.error(`Error Response Data: ${JSON.stringify(error.response.data)}`);
+      console.error(`Error Response Status: ${error.response.status}`);
+      console.error(`Error Response Headers: ${JSON.stringify(error.response.headers)}`);
+    } else {
+      console.error(`Error Message: ${error.message}`);
+    }
+    
     ctx.reply('Gagal membuat permintaan deposit.');
-    console.log(`Failed to create deposit request: ${error.message}`);
   }
-
-  // Hapus state setelah selesai
-  delete depositState[userId];
-});
 
  // Handle size selection
   bot.action(/(vps|rdp)_size_.+/, async (ctx) => {
