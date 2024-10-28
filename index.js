@@ -25,20 +25,18 @@ const prices = {
 };
 
 //============CONFIG============//
-require('dotenv').config()
-let token = process.env.BOT_TOKEN; // TOKEN BOT TELEGRAM
-let botname = 'Amang Store Bot'; // NAMA UNTUK BOT 
-let ownerId = process.env.OWNER_ID; // ID OWNER TELEGRAM
-let owner = 'cgban'; // Username Owner
-let groupId = process.env.GROUP_ID; // ID grup Telegram
-let channelId = process.env.CHANNEL_ID; // ID channel Telegram
-let PHOTO_URL = process.env.PHOTO_URL; // LINK PHOTO UNTUK DI TAMPILKAN
-let MONGODB_URI = process.env.MONGODB_URI; // MongoDB connection string
-let DO_APIKEY = process.env.DO_APIKEY; // API key untuk service
-let SERVICE_PAYDISINI = process.env.SERVICE_PAYDISINI; // Nomor Service PAYDISINI
-let TYPEFEE = process.env.TYPEFEE; // TYPE FEE PAYDISINI
-let timepaydisini = process.env.TIME_PAYDISINI; // Waktu timer EXP untuk QRIS Paydisini
-
+let token = ["5913815080:AAG9ZZfdShhl8pCUPmzcE0OwlnmyRg6EYQU"]// TOKEN BOT TELEGRAM
+let botname = 'NUXYS STORE'//NAMA UNTUK BOT 
+let ownerId = '6752163466'//ID OWNER TELEGRAM bisa pakai Bot Rose untuk mendapatkan user ID
+let owner = 'ahmadzakiyo'//Username Owner
+let groupId = '-1002081929222' // ID grup Telegram gunakan Helper Bot untuk mendapatka ID Group dengan cara /info @Username_Group
+let channelId = '-1002160623851' // ID channel Telegram gunakan Helper Bot untuk mendapatka ID Channel dengan cara /info @Username_Channel
+let PHOTO_URL = 'https://telegra.ph//file/a22656931d544e1bd216e.jpg'//LINK PHOTO UNTUK DI TAMPILKAN DALAM BROADCAST JIKA ADA USER / BUYYER YANG MELAKUKAN PEMBELIAN
+let MONGODB_URI = 'mongodb+srv://ahmadzakime:lelang18@restapi.syyz2sc.mongodb.net/?retryWrites=true&w=majority&appName=Restapi'
+let DO_APIKEY = 'dop_v1_3351ba67bd216a12fa93e52c192c8f17312a4decadae75d43e52c2c312977908'
+let SERVICE_PAYDISINI = '23'//Nomor Service PAYDISINI
+let TYPEFEE = '1'//TYPE FEE PAYDISINI
+let timepaydisini = '1800'// Waktu timer EXP untuk QRIS Paydisini
 const bot = new Telegraf(token);
 bot.use(session());
 
@@ -205,7 +203,7 @@ bot.use((ctx, next) => {
     console.log(`[${timestamp}] User: @${username}, Command: ${command}`);
 
     if (command.startsWith('/')) {
-      const knownCommands = ['start', 'privacy', 'createrdp', 'createvps', 'ceksaldo', 'caraorder', 'menu', '2fa', 'beli', 'stock', 'deposit', 'leaderboard', 'tiktok', 'addsaldo', 'addproduk', 'delproduk', 'addstock', 'setharga', 'resetdb', 'bc', 'listvm', 'owner'];
+      const knownCommands = ['start', 'privacy', 'createrdp', 'createvps', 'ceksaldo', 'caraorder', 'menu', '2fa', 'beli', 'listproduk', 'deposit', 'leaderboard', 'tiktok', 'addsaldo', 'addproduk', 'delproduk', 'addstock', 'setharga', 'resetdb', 'bc', 'listvm'];
 
       if (!knownCommands.includes(command.substring(1).split(' ')[0])) {
         ctx.reply('⚠️ Command tidak ditemukan. Silakan gunakan perintah yang valid.');
@@ -235,40 +233,44 @@ bot.command('start', (ctx) => {
 bot.command('menu', async (ctx) => {
   try {
     await ctx.reply(
-      `╭─❒  🌟 **Bot Info** 🌟
-├ **Creator:** [@cgban]
-├ **Sponsored by:** [@BotFather]
-├ **Memory Used:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(os.totalmem() / 1024 / 1024)}MB
-├ **Hostname:** ${os.hostname()}
-├ **Platform:** ${os.platform()}
+      `╭─❒ 「 Bot Info 」 
+├ Creator : [@ahmadzakiyo]
+├ Sponsored : [@BotFather]
+├ Memory Used : ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(os.totalmem() / 1024 / 1024)}MB
+├ Hostname : ${os.hostname()}
+├ Platform : ${os.platform()}
 ╰❒ 
 
-╭─❒  📚 **USER MENU** 📚
-├ /beli - Purchase items
-├ /stock - Check stock availability
+╭─❒ 「 USER MENU 」 
+├ - /beli 
 ╰❒ 
 
-╭─❒  🔧 **OWNER MENU** 🔧
-├ /addproduk - Add a product
-├ /delproduk - Delete a product
-├ /setharga - Set the price
-├ /resetdb - Reset the database
-├ /bc - Broadcast a message
+╭─❒ 「 OWNER MENU 」 
+├ - /addproduk 
+├ - /delproduk
+├ - /setharga
+├ - /resetdb
+├ - /bc
 ╰❒ 
+
       `,
       {
         reply_markup: {
           inline_keyboard: [
             [
-              { text: '💰 DEPOSIT', callback_data: 'deposit' },
-              { text: '🔍 CEKSALDO', callback_data: 'ceksaldo' }
+              { text: 'DEPOSIT', callback_data: 'deposit' },
+              { text: 'CEKSALDO', callback_data: 'ceksaldo' }
             ],
             [
-              { text: 'ℹ️ INFO', callback_data: 'info' }
+              { text: 'INFO', callback_data: 'info' }
             ],
             [
-              { text: '📦 CARA ORDER', callback_data: 'caraorder' }
+              { text: 'CARA ORDER', callback_data: 'caraorder' }
             ],
+            [
+              { text: 'CREATE VPS', callback_data: 'createvps' }
+
+            ]
           ]
         },
         reply_to_message_id: ctx.message.message_id
@@ -276,60 +278,10 @@ bot.command('menu', async (ctx) => {
     );
   } catch (error) {
     console.error('Error handling menu action:', error);
+    // Jika ada kesalahan, hanya kirimkan pesan kesalahan ke pengguna tanpa membalas ke pesan tertentu
     await ctx.reply('Terjadi kesalahan saat menampilkan menu.');
   }
 });
-
-
-// Command owner 
-bot.command('owner', async (ctx) => {
-  try {
-    await ctx.reply(
-      `╭─❒  🌟 **Bot Info** 🌟
-├ **Creator:** [@cgban]
-├ **Sponsored by:** [@BotFather]
-├ **Memory Used:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(os.totalmem() / 1024 / 1024)}MB
-├ **Hostname:** ${os.hostname()}
-├ **Platform:** ${os.platform()}
-╰❒ 
-
-╭─❒  📚 **USER MENU** 📚
-├ /beli - Purchase items
-├ /stock - Check stock availability
-╰❒ 
-
-╭─❒  🔧 **OWNER MENU** 🔧
-├ /addproduk - Add a product
-├ /delproduk - Delete a product
-├ /setharga - Set the price
-├ /resetdb - Reset the database
-├ /bc - Broadcast a message
-╰❒ 
-      `,
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              { text: '💰 DEPOSIT', callback_data: 'deposit' },
-              { text: '🔍 CEKSALDO', callback_data: 'ceksaldo' }
-            ],
-            [
-              { text: 'ℹ️ INFO', callback_data: 'info' }
-            ],
-            [
-              { text: '📦 CARA ORDER', callback_data: 'caraorder' }
-            ],
-          ]
-        },
-        reply_to_message_id: ctx.message.message_id
-      }
-    );
-  } catch (error) {
-    console.error('Error handling menu action:', error);
-    await ctx.reply('Terjadi kesalahan saat menampilkan menu.');
-  }
-});
-
 
 // Command untuk menampilkan kebijakan privasi
 bot.command ('privacy', (ctx) => {
@@ -374,17 +326,10 @@ bot.action('caraorder', (ctx) => {
   const message = `
 **Cara Order Produk:**
 
-1. **Cara Deposit:**
-   - Ketik /menu
-   - Pilih Tombol Deposit
-   - Masukkan Jumlah Deposit
-   - Tunggu hingga BOT Mengkonfirmasi Pembayaran anda.
-
-2. **Cara Order Produk Akun:**
+1. **Cara Order Produk Akun:**
    - Ketik /beli diikuti dengan kode produk dan jumlah.
    - Contoh: /beli kodeproduk jumlah
-   - Produk akan di kirim otomatis oleh bot, Jika akun memerlukan code 2FA Contacts owner untuk meminta akses.
-   - Jangan lupa Selalu simpan data anda.
+   - Admin atau owner akan memverifikasi dan memproses pesanan Anda.
 
 Jika Anda memiliki pertanyaan lebih lanjut atau membutuhkan bantuan, jangan ragu untuk menghubungi admin atau owner.
 `;
@@ -436,8 +381,8 @@ bot.action('info', async (ctx) => {
   }
 });
 
-// Handle /stock
-bot.action('stock', async (ctx) => {
+// Handle /listproduk
+bot.action('listproduk', async (ctx) => {
   try {
     // Menghapus pesan yang memicu aksi ini
     await ctx.deleteMessage();
@@ -973,7 +918,7 @@ const transactionMessage = `╭──── 〔 *NOTIF OTOMATIS* 〕
 *┊・ 🔐| Transaksi berhasil:* ${transactionCount}
    Pembelian barang berhasil, terima kasih telah berbelanja. Yuk beli akun di @nuxysaibot
    
-   Auothor : @cgban
+   Auothor : @ahmadzakiyo
    ©2024
 ╰┈┈┈┈┈┈┈┈`;
 
@@ -999,8 +944,8 @@ await bot.telegram.sendPhoto(channelId, photoUrl, {
   }
 });
 
-// Command /stock
-bot.command('stock', async (ctx) => {
+// Command /listproduk
+bot.command('listproduk', async (ctx) => {
   try {
     const products = await Product.find();
     if (products.length === 0) {
@@ -1079,8 +1024,8 @@ bot.hears(/^\d+$/, async (ctx) => {
   }
 
   const uniqueCode = `user${userId}-${Date.now()}`;
-  const key = '7042dff3d616252fb73d32bc06f7c4c9';
-  const service = '17';
+  const key = 'f0f40602286b844ae552d1bcbdb7edfc';
+  const service = '11';
   const note = 'Deposit saldo';
   const validTime = `${timepaydisini}`;
   const typeFee = '1';
